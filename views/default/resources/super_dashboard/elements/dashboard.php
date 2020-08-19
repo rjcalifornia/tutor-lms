@@ -9,6 +9,56 @@ $user = elgg_get_logged_in_user_entity();
 $siteUrl = elgg_get_site_url();
 $site = elgg_get_site_entity();
 $siteName = $site->name;
+$dbprefix = elgg_get_config('dbprefix');
+
+if($user->role_type != 'teacher'){
+$userGroups = elgg_get_entities_from_relationship(array(
+	'type' => 'group',
+	'relationship' => 'member',
+	'relationship_guid' => $user->guid,
+	'inverse_relationship' => false,
+	'full_view' => false,
+	'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),
+	'order_by' => 'ge.name ASC',
+	'no_results' => elgg_echo('groups:none'),
+));
+}
+
+if($user->role_type == 'teacher'){
+$userGroups = elgg_get_entities_from_relationship(array(
+	'type' => 'group',
+	'relationship' => 'owner',
+	'relationship_guid' => $user->guid,
+	'inverse_relationship' => false,
+	'full_view' => false,
+	'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),
+	'order_by' => 'ge.name ASC',
+	'no_results' => elgg_echo('groups:none'),
+));
+}
+
+ 
+
+  foreach ($userGroups as $group) {
+
+   $group_guids[] = $group->guid;
+  }
+   $guids_in = implode(',', array_unique(array_filter($group_guids)));
+
+$activity = elgg_list_river([
+	'limit' => 6,
+	'pagination' => false,
+	'joins' => ["JOIN {$dbprefix}entities e1 ON e1.guid = rv.object_guid"],
+	'wheres' => ["(e1.container_guid IN ({$guids_in}))"],
+]);
+//var_dump($activity);
+        
+        
+        $invitations = groups_get_invited_groups($user->guid, false, array(
+		'limit' => $limit,
+		'offset' => $offset
+			));
+               
 ?>
 
 <style>
@@ -34,6 +84,13 @@ $siteName = $site->name;
     font-size:66px;
     
 }
+.dash-link{
+    color: #918C8C !important;
+}
+
+.bg-light-blue{
+        background-color: #03A9F4 !important;
+}
 </style>
 
     
@@ -45,7 +102,9 @@ $siteName = $site->name;
                                     <div class="panel box-v1">
                                       <div class="panel-heading bg-white border-none">
                                         <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
-                                          <h4 class="text-left">Visit</h4>
+                                            <h4 class="text-left">
+                                                <?php echo elgg_echo('tutor-dashboard:messages'); ?>
+                                            </h4>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                            <h4>
@@ -54,8 +113,12 @@ $siteName = $site->name;
                                         </div>
                                       </div>
                                       <div class="panel-body-dashboard text-center">
+                                          <a class="dash-link" href="<?php echo elgg_get_site_url(); ?>messages/inbox/<?php  echo $user->username; ?>">
                                         <span class="super-dashboard-elgg-icon fa fa-inbox"></span>
-                                        <p><?php echo elgg_echo('tutor-dashboard:title:messages'); ?></p>
+                                        <p>
+                                            <?php echo elgg_echo('tutor-dashboard:title:messages'); ?>
+                                        </p>
+                                        </a>
                                         <hr/>
                                       </div>
                                     </div>
@@ -64,17 +127,21 @@ $siteName = $site->name;
                                     <div class="panel box-v1">
                                       <div class="panel-heading bg-white border-none">
                                         <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
-                                          <h4 class="text-left">Orders</h4>
+                                          <h4 class="text-left"><?php echo elgg_echo('tutor-dashboard:settings'); ?></h4>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                            <h4>
-                                           <span class="icon-basket-loaded icons icon text-right"></span>
+                                           <span class="icon-user icons icon text-right"></span>
                                            </h4>
                                         </div>
                                       </div>
                                       <div class="panel-body-dashboard text-center">
+                                          <a class="dash-link" href="<?php echo elgg_get_site_url(); ?>settings/user/<?php echo $user->username; ?>">
                                         <span class="super-dashboard-elgg-icon fa fa-cogs"></span>
-                                        <p><?php echo elgg_echo('tutor-dashboard:title:settings'); ?></p>
+                                        <p>
+                                            <?php echo elgg_echo('tutor-dashboard:title:settings'); ?>
+                                        </p>
+                                        </a>
                                         <hr/>
                                       </div>
                                     </div>
@@ -88,12 +155,14 @@ $siteName = $site->name;
                                     <div class="panel-body padding-0">
                                         <div class="col-md-12 col-xs-12 col-md-12 padding-0 box-v4-alert">
                                             <h2>Checking Your Server!</h2>
-                                            <p>Daily Check on Server status, mostly looking at servers with alerts/warnings</p>
+                                            <p>
+                                                <?php
+                                                echo $activity
+                                                        ?>
+                                            </p>
                                             <b><span class="icon-clock icons"></span> Today at 15:00</b>
                                         </div>
-                                        <div class="calendar">
-                                          
-                                        </div>
+                                         
                                     </div>
                                 </div> 
                             </div>
@@ -104,11 +173,11 @@ $siteName = $site->name;
                                   <div class="panel-heading padding-0">
                                       <img src="<?php echo $siteUrl?>mod/tutor-lms/vendors/asset/img/bg2.jpg" class="box-v2-cover img-responsive"/>
                                     <div class="box-v2-detail">
-                                      <img src="asset/img/avatar.jpg" class="img-responsive"/>
+                                      <img src="<?php echo $user->getIconURL('master');?>" class="img-responsive"/>
                                       <h4><?php echo $user->name;?></h4>
                                     </div>
                                   </div>
-                                  <div class="panel-body">
+                                  <!--<div class="panel-body">
                                     <div class="col-md-12 padding-0 text-center">
                                       <div class="col-md-4 col-sm-4 col-xs-6 padding-0">
                                           <h3>2.000</h3>
@@ -123,112 +192,91 @@ $siteName = $site->name;
                                           <p>photos</p>
                                       </div>
                                     </div>
-                                  </div>
+                                  </div>!-->
                               </div>
                             </div>
+<div class="col-md-12 padding-0 ">
+    
+                               <?php 
+                               if($invitations != null)
+                               {
+                               ?>
+                              <div class="panel bg-light-blue">
+                                <div class="panel-body text-white bg-light-blue">
 
+                                   <p class="animated fadeInUp">
+                                   <?php echo elgg_echo('dashboard:invitations:received')?>
+                                   </p>
+                                    <div class="col-md-12 padding-0">
+                                        
+                                                                      <?php
+                                  $vars['items'] = $invitations;
+                                $vars['item_view'] = 'group/format/invitationrequest';
+                                $vars['no_results'] = elgg_echo('groups:invitations:none');
+
+                                echo elgg_view('page/components/list', $vars);
+
+                                ?>
+                                    </div>
+                                </div>
+                              </div>
+                               <?php 
+                               }
+                               ?>
+    
+    
+                            </div>
                             <div class="col-md-12 padding-0">
                               <div class="panel box-v3">
                                 <div class="panel-heading bg-white border-none">
-                                  <h4>Report</h4>
+                                  <h4>
+                                      <?php 
+                                  
+                                            $user->role_type == 'teacher'? $label= elgg_echo('tutor:dashboard:teacher_groups'): $label = elgg_echo('tutor:dashboard:groups'); 
+                                          
+                                            echo $label;
+                                     ?>
+                                  </h4>
                                 </div>
+                                  
+                                  
                                 <div class="panel-body">
-                                    
+                                   <?php
+                                   foreach ($userGroups as $v) {
+                                       $group = get_entity($v->guid);
+                                       
+                                   
+                                   ?> 
                                   <div class="media">
                                     <div class="media-left">
-                                        <span class="icon-folder icons" style="font-size:2em;"></span>
+                                        <span class="icon-layers icons" style="font-size:2em;"></span>
                                     </div>
                                     <div class="media-body">
-                                      <h5 class="media-heading">Document Handling</h5>
+                                     <a href="<?php echo $group->getURL();?>">   <h5 class="media-heading"><?php echo $v->name;?></h5></a>
                                         <div class="progress progress-mini">
-                                          <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                                          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
                                             <span class="sr-only">60% Complete</span>
                                           </div>
                                         </div>
+                                      <h6 class="media-heading"><?php echo $v->briefdescription;?></h6>
                                     </div>
                                   </div>
+                                    <?php
+                                   }
+                                    ?>
 
-                                  <div class="media">
-                                    <div class="media-left">
-                                        <span class="icon-pie-chart icons" style="font-size:2em;"></span>
-                                    </div>
-                                    <div class="media-body">
-                                      <h5 class="media-heading">UI/UX Development</h5>
-                                        <div class="progress progress-mini">
-                                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="19" aria-valuemin="0" aria-valuemax="100" style="width: 19%;">
-                                            <span class="sr-only">60% Complete</span>
-                                          </div>
-                                        </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="media">
-                                    <div class="media-left">
-                                        <span class="icon-energy icons" style="font-size:2em;"></span>
-                                    </div>
-                                    <div class="media-body">
-                                      <h5 class="media-heading">Server Optimation</h5>
-                                        <div class="progress progress-mini">
-                                          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%;">
-                                            <span class="sr-only">60% Complete</span>
-                                          </div>
-                                        </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="media">
-                                    <div class="media-left">
-                                        <span class="icon-user icons" style="font-size:2em;"></span>
-                                    </div>
-                                    <div class="media-body">
-                                      <h5 class="media-heading">User Status</h5>
-                                        <div class="progress progress-mini">
-                                          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-                                            <span class="sr-only">60% Complete</span>
-                                          </div>
-                                        </div>
-                                    </div>
-                                  </div>
-
-                                   <div class="media">
-                                    <div class="media-left">
-                                        <span class="icon-fire icons" style="font-size:2em;"></span>
-                                    </div>
-                                    <div class="media-body">
-                                      <h5 class="media-heading">Firewall Status</h5>
-                                        <div class="progress progress-mini">
-                                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-                                            <span class="sr-only">60% Complete</span>
-                                          </div>
-                                        </div>
-                                    </div>
-                                  </div>
                                 </div>
+                                  
+                                  
                                 <div class="panel-footer bg-white border-none">
-                                    <center>
-                                      <input type="button" value="download as pdf" class="btn btn-danger box-shadow-none"/>
-                                    </center>
+                                    
                                 </div>
+                                  
                               </div>
+                            
                             </div>
 
-                            <div class="col-md-12 padding-0">
-                              <div class="panel bg-light-blue">
-                                <div class="panel-body text-white">
-                                   <p class="animated fadeInUp quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit Ut wisi..."</p>
-                                    <div class="col-md-12 padding-0">
-                                      <div class="text-left col-md-7 col-xs-12 col-sm-7 padding-0">
-                                        <span class="fa fa-twitter fa-2x"></span>
-                                        <span>22 May, 2015 via mobile</span>
-                                      </div>
-                                      <div style="padding-top:8px;" class="text-right col-md-5 col-xs-12 col-sm-5 padding-0">
-                                        <span class="fa fa-retweet"></span> 2000
-                                        <span class="fa fa-star"></span> 3000
-                                      </div>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
+                             
                         </div>
                     </div>
 

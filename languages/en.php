@@ -109,7 +109,11 @@ return array(
 	'groups:invite:title' => 'Invite friends to this course',
 	'groups:inviteto' => "Invite friends to '%s'",
 	'tutor-dashboard:title:messages' => "Inbox",
+	'tutor-dashboard:messages' => "View",
 	'tutor-dashboard:title:settings' => "Account settings",
+	'tutor-dashboard:settings' => "Edit",
+	'tutor:dashboard:groups' => "My courses",
+	'tutor:dashboard:teacher_groups' => "Courses I teach",
         
         
         

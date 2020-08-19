@@ -114,6 +114,9 @@ return array(
 	'tutor-dashboard:settings' => "Edit",
 	'tutor:dashboard:groups' => "My courses",
 	'tutor:dashboard:teacher_groups' => "Courses I teach",
+	'dashboard:invitations:received' => "Requests received to join course",
+	'dashboard:courses:activities' => "Agenda",
+	'dashboard:check:missing' => "Check what you've might missed!",
         
         
         

@@ -27,8 +27,9 @@ $userGroups = elgg_get_entities_from_relationship(array(
 if($user->role_type == 'teacher'){
 $userGroups = elgg_get_entities_from_relationship(array(
 	'type' => 'group',
-	'relationship' => 'owner',
-	'relationship_guid' => $user->guid,
+	//'relationship' => 'owner',
+    'owner_guid' => $user->guid,
+	//'relationship_guid' => $user->guid,
 	'inverse_relationship' => false,
 	'full_view' => false,
 	'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),
@@ -38,7 +39,7 @@ $userGroups = elgg_get_entities_from_relationship(array(
 }
 
  
-
+//var_dump($userGroups);
   foreach ($userGroups as $group) {
 
    $group_guids[] = $group->guid;
@@ -46,7 +47,7 @@ $userGroups = elgg_get_entities_from_relationship(array(
    $guids_in = implode(',', array_unique(array_filter($group_guids)));
 
 $activity = elgg_list_river([
-	'limit' => 6,
+	'limit' => 8,
 	'pagination' => false,
 	'joins' => ["JOIN {$dbprefix}entities e1 ON e1.guid = rv.object_guid"],
 	'wheres' => ["(e1.container_guid IN ({$guids_in}))"],
@@ -90,6 +91,17 @@ $activity = elgg_list_river([
 
 .bg-light-blue{
         background-color: #03A9F4 !important;
+}
+
+.elgg-subtext {
+    color: #f5f6f5 !important;
+    font-size: 85%;
+    line-height: 1.4em;
+    font-style:normal !important;
+}
+
+.elgg-item h3 a {
+    color: white !important;
 }
 </style>
 
@@ -150,17 +162,26 @@ $activity = elgg_list_river([
                             <div class="col-md-12">
                                 <div class="panel box-v4">
                                     <div class="panel-heading bg-white border-none">
-                                      <h4><span class="icon-notebook icons"></span> Agenda</h4>
+                                      <h4>
+                                          <span class="icon-notebook icons"></span> 
+                                          <?php 
+                                            echo elgg_echo('dashboard:courses:activities')
+                                          ?>
+                                      </h4>
                                     </div>
                                     <div class="panel-body padding-0">
                                         <div class="col-md-12 col-xs-12 col-md-12 padding-0 box-v4-alert">
-                                            <h2>Checking Your Server!</h2>
+                                            <h2> <span class="icon-check icons"></span> 
+                                            <?php 
+                                                echo elgg_echo('dashboard:check:missing');
+                                            ?>
+                                            </h2>
                                             <p>
                                                 <?php
                                                 echo $activity
                                                         ?>
                                             </p>
-                                            <b><span class="icon-clock icons"></span> Today at 15:00</b>
+                                            
                                         </div>
                                          
                                     </div>
@@ -239,14 +260,14 @@ $activity = elgg_list_river([
                                   </h4>
                                 </div>
                                   
-                                  
-                                <div class="panel-body">
-                                   <?php
+                                 <?php
                                    foreach ($userGroups as $v) {
                                        $group = get_entity($v->guid);
                                        
                                    
-                                   ?> 
+                                   ?>   
+                                <div class="panel-body">
+                                  
                                   <div class="media">
                                     <div class="media-left">
                                         <span class="icon-layers icons" style="font-size:2em;"></span>
@@ -261,12 +282,13 @@ $activity = elgg_list_river([
                                       <h6 class="media-heading"><?php echo $v->briefdescription;?></h6>
                                     </div>
                                   </div>
-                                    <?php
-                                   }
-                                    ?>
+                                   
 
                                 </div>
-                                  
+                                  </br>
+                                   <?php
+                                   }
+                                    ?>
                                   
                                 <div class="panel-footer bg-white border-none">
                                     
@@ -280,100 +302,7 @@ $activity = elgg_list_river([
                         </div>
                     </div>
 
-                  <div class="col-md-12 card-wrap padding-0">
-                    <div class="col-md-6">
-                        <div class="panel">
-                          <div class="panel-heading bg-white border-none" style="padding:20px;">
-                            <div class="col-md-6 col-sm-6 col-sm-12 text-left">
-                              <h4>Line Chart</h4>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-sm-12">
-                                <div class="mini-onoffswitch pull-right onoffswitch-danger" style="margin-top:10px;">
-                                  <input type="checkbox" name="onoffswitch2" class="onoffswitch-checkbox" id="myonoffswitch1" checked>
-                                  <label class="onoffswitch-label" for="myonoffswitch1"></label>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="panel-body" style="padding-bottom:50px;">
-                              <div id="canvas-holder1">
-                                    <canvas class="line-chart" style="margin-top:30px;height:200px;"></canvas>
-                              </div>
-                              <div class="col-md-12" style="padding-top:20px;">
-                                  <div class="col-md-4 col-sm-4 col-xs-6 text-center">
-                                      <h2 style="line-height:.4;">$100.21</h2>
-                                      <small>Total Laba</small>
-                                  </div>
-                                  <div class="col-md-4 col-sm-4 col-xs-6 text-center">
-                                      <h2 style="line-height:.4;">2000</h2>
-                                      <small>Total Barang</small>
-                                  </div>
-                                  <div class="col-md-4 col-sm-4 col-xs-12 text-center">
-                                      <h2 style="line-height:.4;">$291.1</h2>
-                                      <small>Total Pengeluaran</small>
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="panel">
-                          <div class="panel-heading bg-white border-none" style="padding:20px;">
-                            <div class="col-md-6 col-sm-6 col-sm-12 text-left">
-                              <h4>Orders</h4>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-sm-12">
-                                <div class="mini-onoffswitch pull-right onoffswitch-primary" style="margin-top:10px;">
-                                  <input type="checkbox" name="onoffswitch3" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
-                                  <label class="onoffswitch-label" for="myonoffswitch3"></label>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="panel-body" style="padding-bottom:50px;">
-                              <div id="canvas-holder1">
-                                <canvas class="bar-chart"></canvas>
-                              </div>
-                              <div class="col-md-12 padding-0" >
-                                <div class="col-md-4 col-sm-4 hidden-xs" style="padding-top:20px;">
-                                  <canvas class="doughnut-chart2"></canvas>
-                                </div>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                    <h4>Progress Produksi barang</h4>
-                                    <p>Sed hendrerit. Curabitur blandit mollis lacus. Duis leo. Sed libero.fusce commodo aliquam arcu..</p>
-                                    <div class="progress progress-mini">
-                                      <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                        <span class="sr-only">60% Complete</span>
-                                      </div>
-                                    </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="panel bg-green text-white">
-                            <div class="panel-body">
-                              <div class="col-md-8 col-sm-8 col-xs-12">
-                                <div class="maps" style="height:300px;">
-                                </div>
-                              </div>
-                              <div class="col-md-4 col-sm-4 col-xs-12">
-                                  <canvas class="doughnut-chart hidden-xs"></canvas>
-                                  <div class="col-md-12">
-                                    <div class="col-md-6 col-sm-12 col-xs-12">
-                                      <h1>72.993</h1>
-                                      <p>People</p>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12 col-xs-12">
-                                       <h1>12.000</h1>
-                                       <p>Active</p>
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
 
  

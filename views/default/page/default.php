@@ -45,7 +45,9 @@ echo elgg_view('page/elements/head', $vars['head']);
           echo elgg_view('tutor_lms_theme/elements/left_menu');
           ?>
           <!-- end: Left Menu -->
-
+<div class="elgg-page-messages">
+		<?php echo $messages ?>
+	</div>
           <!-- start: Content -->
           <div id="content">
             <div class="col-md-12 padding-0">
@@ -66,7 +68,7 @@ echo elgg_view('page/elements/head', $vars['head']);
                   <div class="col-md-12">
                     <div class="panel">
                       <div class="panel-heading">
-                        <h4>Default</h4>
+                        <h4><?php echo elgg_echo('tutor-lms:main:title'); ?></h4>
                       </div>
                       <div class="panel-body">
                             
@@ -88,7 +90,7 @@ echo elgg_view('page/elements/head', $vars['head']);
 
             <!-- start: right menu -->
            <?php
-                echo elgg_view('tutor_lms_theme/elements/right_menu');
+            //    echo elgg_view('tutor_lms_theme/elements/right_menu');
            ?>
           <!-- end: right menu -->
           

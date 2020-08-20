@@ -117,6 +117,8 @@ return array(
 	'dashboard:invitations:received' => "Requests received to join course",
 	'dashboard:courses:activities' => "Agenda",
 	'dashboard:check:missing' => "Check what you've might missed!",
+	'dashboard:group:name' => "Course: ",
+	'tutor-lms:main:title' => "Tutor LMS",
         
         
         

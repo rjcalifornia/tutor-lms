@@ -18,8 +18,8 @@ $siteUrl = elgg_get_site_url();
                 <span class="middle"></span>
                 <span class="bottom"></span>
               </div>
-                <a href="index.html" class="navbar-brand"> 
-                 <b>MIMIN</b>
+                <a href="<?php echo $siteUrl;?>" class="navbar-brand"> 
+                 <b><?php echo elgg_echo('tutor-lms:main:title');?></b>
                 </a>
 
               <ul class="nav navbar-nav search-nav">
@@ -74,7 +74,7 @@ if (elgg_is_logged_in())
                     </li>
                   </ul>
                 </li>
-                <li ><a href="#" class="opener-right-menu"><span class="fa fa-coffee"></span></a></li>
+                <li ><a href="<?php echo $siteUrl ?>action/logout/" style="font-size: 25px;"><span class="fa fa-sign-out"></span></a></li>
               </ul>
 <?php
 }

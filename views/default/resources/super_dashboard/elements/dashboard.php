@@ -40,9 +40,12 @@ $userGroups = elgg_get_entities_from_relationship(array(
 
  
 //var_dump($userGroups);
+$courseRequests = [];
   foreach ($userGroups as $group) {
 
    $group_guids[] = $group->guid;
+    
+   
   }
    $guids_in = implode(',', array_unique(array_filter($group_guids)));
 
@@ -59,51 +62,11 @@ $activity = elgg_list_river([
 		'limit' => $limit,
 		'offset' => $offset
 			));
+        
+        
+echo elgg_view('resources/tutor-lms-elements/dashboard_css');
                
 ?>
-
-<style>
-.panel-body
-{background:#f0f3f4;    }
-
-.box-v1 .panel-body-dashboard {
-    padding-top: 40px;
-}
-
-.panel-body-dashboard {
-    padding: 15px;
-}
-
-.text-left{
-    color: #918C8C !important;
-}
-
-.super-dashboard-elgg-icon{
-
-    
-    
-    font-size:66px;
-    
-}
-.dash-link{
-    color: #918C8C !important;
-}
-
-.bg-light-blue{
-        background-color: #03A9F4 !important;
-}
-
-.elgg-subtext {
-    color: #f5f6f5 !important;
-    font-size: 85%;
-    line-height: 1.4em;
-    font-style:normal !important;
-}
-
-.elgg-item h3 a {
-    color: white !important;
-}
-</style>
 
     
   <div class="col-md-12" style="padding:20px; margin-top: 64px;">
@@ -244,6 +207,59 @@ $activity = elgg_list_river([
                                <?php 
                                }
                                ?>
+    
+    <?php
+    
+    if($user->role_type == 'teacher'){
+        
+        
+        $requests = elgg_get_entities_from_relationship(array(
+	'type' => 'user',
+	'relationship' => 'membership_request',
+	'relationship_guid' => $group->guid,
+	'inverse_relationship' => true,
+	'limit' => 0,
+        ));
+        
+        if($requests != null)
+        {
+                foreach ($userGroups as $group) {
+
+                        $group_guids[] = $group->guid;
+
+                        $requests = elgg_get_entities_from_relationship(array(
+                             'type' => 'user',
+                             'relationship' => 'membership_request',
+                             'relationship_guid' => $group->guid,
+                             'inverse_relationship' => true,
+                             'limit' => 0,
+                        ));
+               ?>
+    <div class="panel bg-light-blue">
+                                <div class="panel-body text-white bg-light-blue">
+
+                                   <p class="animated fadeInUp">
+                                   <?php echo elgg_echo('dashboard:invitations:received')?>
+                                   </p>
+                                    <div class="col-md-12 padding-0">
+                                        
+                                <?php
+                                    echo elgg_view('groups/membershiprequests', array(
+                                    'requests' => $requests,
+                                    'entity' => $group,));
+
+
+                                    
+
+                                ?>
+                                    </div>
+                                </div>
+                              </div>
+    <?php
+            }
+        }
+    }
+    ?>
     
     
                             </div>

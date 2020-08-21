@@ -21,19 +21,21 @@ $siteUrl = elgg_get_site_url();
                 <a href="<?php echo $siteUrl;?>" class="navbar-brand"> 
                  <b><?php echo elgg_echo('tutor-lms:main:title');?></b>
                 </a>
-
+<form action="<?php echo $siteUrl?>search" method="get">
               <ul class="nav navbar-nav search-nav">
                 <li>
                    <div class="search">
                     <span class="fa fa-search icon-search" style="font-size:23px;"></span>
                     <div class="form-group form-animate-text">
-                      <input type="text" class="form-text" required>
+                      <input name="q" type="text" class="form-text" required>
+                      <input type="hidden" name="search_type" value="all">
                       <span class="bar"></span>
-                      <label class="label-search">Type anywhere to <b>Search</b> </label>
+                      <label class="label-search"><?php echo elgg_echo('tutor-lms:search'); ?></label>
                     </div>
                   </div>
                 </li>
               </ul>
+    </form>
 <?php 
 if (elgg_is_logged_in())
 {

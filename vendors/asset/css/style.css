@@ -5350,6 +5350,14 @@ ul li a:focus {
     color: var(--tutor-light-color);
     font-weight: 400;
 }
+
+//elgg-menu elgg-menu-hover-actions
+
+.elgg-menu.elgg-menu-hover-actions{
+    padding-left: 0px !important;
+    background-color:red;
+}
+
 @media (max-width: 575px)
 {
 .tutor-single-course-meta.tutor-lead-meta ul {

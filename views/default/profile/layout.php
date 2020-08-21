@@ -7,6 +7,8 @@
 $user = elgg_get_page_owner_entity();
 $siteUrl = elgg_get_site_url();
 $dbprefix = elgg_get_config('dbprefix');
+$grouCount = 0;
+$activityCount = 0;
 /*
 // main profile page
 $params = array(
@@ -25,6 +27,24 @@ $profileActivity = tutor_list_river([
 	'joins' => ["JOIN {$dbprefix}entities e1 ON e1.guid = rv.object_guid"],
 	'wheres' => ["(e1.owner_guid = $user->guid)"],
 ]);
+        
+        $userActivities = elgg_get_river([
+	'limit' => 0,
+	'pagination' => false,
+	'joins' => ["JOIN {$dbprefix}entities e1 ON e1.guid = rv.object_guid"],
+	'wheres' => ["(e1.owner_guid = $user->guid)"],
+]);
+        
+       
+        foreach ($userGroups as $v) {
+            $grouCount++;
+        }
+        
+        foreach ($userActivities as $c)
+        {
+            $activityCount++;
+            
+        }
         
        // var_dump($profileActivity);
 
@@ -59,14 +79,14 @@ $profileActivity = tutor_list_river([
                 <div class="col-md-3 col-sm-12 padding-0 profile-v1-right">
                     <div class="col-md-6 col-sm-4 profile-v1-right-wrap padding-0">
                       <div class="col-md-12 padding-0 sub-profile-v1-right text-center sub-profile-v1-right1">
-                          <h1>51</h1>
-                          <p>Followers</p>
+                          <h1><?php echo $grouCount; ?></h1>
+                          <p><?php echo elgg_echo('tutor:profile:group-count');?></p>
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-4 profile-v1-right-wrap padding-0">
                         <div class="col-md-12 sub-profile-v1-right text-center sub-profile-v1-right2">
-                           <h1>609</h1>
-                           <p>Following</p>
+                           <h1><?php echo $activityCount;?></h1>
+                           <p><?php echo elgg_echo('tutor:profile:posts-count');?></p>
                         </div>
                     </div>
                     

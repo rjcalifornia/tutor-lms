@@ -123,6 +123,9 @@ return array(
 	'tutorial:add:teacher:successful' => "User successfully asigned Teacher role",
 	'tutorial:remove:teacher:successful' => "Removed teacher role",
 	'tutor-dashboard:activity:none' => "No activity yet...",
+	'tutor:profile:group-count' => "Courses",
+	'tutor:profile:posts-count' => "Activity",
+	'tutor-lms:search' => "Type anywhere to search",
         
         
         

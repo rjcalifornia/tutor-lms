@@ -30,6 +30,8 @@ function tutor_lms_theme_init()
     elgg_register_menu_item('site', $item);
 
     elgg_register_library('elgg:assignments', __DIR__ . '/lib/assignments.php');
+    elgg_register_library('elgg:tutor-lms', __DIR__ . '/lib/tutor-lms.php');
+    elgg_load_library('elgg:tutor-lms');
     // register the save action
     elgg_register_action("assignments/save", __DIR__ . "/actions/assignments/save.php");
     elgg_register_action("assignments/submit_assignment", __DIR__ . "/actions/assignments/submit_assignment.php");
@@ -59,6 +61,12 @@ function tutor_lms_theme_init()
 
     elgg_register_action("roles/add", __DIR__ . "/actions/roles/add.php");
     elgg_register_action("roles/remove", __DIR__ . "/actions/roles/remove.php");
+    
+    elgg_register_plugin_hook_handler('view', 'river/relationship/member/create', 'alter_group_member_join');
+}
+
+function alter_group_member_join($hook, $type, $retur, $params) {
+    return false;
 }
 
 /**
@@ -204,10 +212,10 @@ function assignments_page_handler($page)
 
             echo elgg_view_resource('assignments/owner', $resource_vars);
         break;
-        case 'friends':
+        /*case 'friends':
             $resource_vars['username'] = elgg_extract(1, $page);
 
-            echo elgg_view_resource('assignments/friends', $resource_vars);
+            echo elgg_view_resource('assignments/friends', $resource_vars);*/
         break;
         case 'archive':
             $resource_vars['username'] = elgg_extract(1, $page);

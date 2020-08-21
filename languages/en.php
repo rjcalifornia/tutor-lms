@@ -119,6 +119,10 @@ return array(
 	'dashboard:check:missing' => "Check what you've might missed!",
 	'dashboard:group:name' => "Course: ",
 	'tutor-lms:main:title' => "Tutor LMS",
+	'tutor-dashboard:profile:menu' => "Options",
+	'tutorial:add:teacher:successful' => "User successfully asigned Teacher role",
+	'tutorial:remove:teacher:successful' => "Removed teacher role",
+	'tutor-dashboard:activity:none' => "No activity yet...",
         
         
         

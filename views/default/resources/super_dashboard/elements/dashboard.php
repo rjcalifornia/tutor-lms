@@ -10,51 +10,11 @@ $siteUrl = elgg_get_site_url();
 $site = elgg_get_site_entity();
 $siteName = $site->name;
 $dbprefix = elgg_get_config('dbprefix');
+$userGroups = tutor_user_courses($user, $dbprefix);
 
-if($user->role_type != 'teacher'){
-$userGroups = elgg_get_entities_from_relationship(array(
-	'type' => 'group',
-	'relationship' => 'member',
-	'relationship_guid' => $user->guid,
-	'inverse_relationship' => false,
-	'full_view' => false,
-	'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),
-	'order_by' => 'ge.name ASC',
-	'no_results' => elgg_echo('groups:none'),
-));
-}
-
-if($user->role_type == 'teacher'){
-$userGroups = elgg_get_entities_from_relationship(array(
-	'type' => 'group',
-	//'relationship' => 'owner',
-    'owner_guid' => $user->guid,
-	//'relationship_guid' => $user->guid,
-	'inverse_relationship' => false,
-	'full_view' => false,
-	'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),
-	'order_by' => 'ge.name ASC',
-	'no_results' => elgg_echo('groups:none'),
-));
-}
-
- 
-//var_dump($userGroups);
-$courseRequests = [];
-  foreach ($userGroups as $group) {
-
-   $group_guids[] = $group->guid;
-    
    
-  }
-   $guids_in = implode(',', array_unique(array_filter($group_guids)));
 
-$activity = elgg_list_river([
-	'limit' => 8,
-	'pagination' => false,
-	'joins' => ["JOIN {$dbprefix}entities e1 ON e1.guid = rv.object_guid"],
-	'wheres' => ["(e1.container_guid IN ({$guids_in}))"],
-]);
+$activity = tutor_courses_activities($userGroups, $dbprefix);
 //var_dump($activity);
         
         

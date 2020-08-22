@@ -96,28 +96,38 @@ $profileActivity = tutor_list_river([
              <div class="col-md-12 col-sm-12 profile-v1-body">
                 <div class="col-md-7">
                    <div class="box-v5 panel" >
-                    <div class="panel-heading padding-0 bg-white border-none">
-                        <textarea placeholder="what do you think?"></textarea>
+                       <div class="panel-heading padding-0 bg-white border-none">
+                    <?php    if (elgg_is_logged_in()) {
+                    echo elgg_view_form('messageboard/add', ['name' => 'elgg-messageboard']);
+                    }
+                    ?>
                     </div>
-                    <div class="panel-body" style="background-color:white;">
-                      <div class="col-md-12 padding-0">
-                        <div class="col-md-6 col-sm-6 col-xs-6 tool">
-                          <a href="#">
-                            <span class="fa fa-map-marker fa-2x"></span>
-                          </a>
-                          <a href="#">
-                            <span class="fa fa-camera fa-2x"></span>
-                          </a>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 padding-0">
-                          <button class="btn btn-round pull-right">
-                            <span>SEND</span>
-                            <span class="icon-arrow-right icons"></span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    <?php
+                    echo elgg_list_annotations([
+                    'annotations_name' => 'messageboard',
+                    'guid' => $user->getGUID(),
+                    'limit' => $widget->num_display,
+                    'pagination' => false,
+                    'reverse_order_by' => true,
+                    ]);
+
+                    if ($owner instanceof ElggGroup) {
+                    $url = "messageboard/group/$user->guid/all";
+                    } else {
+                    $url = "messageboard/owner/$user->username";
+                    }
+
+                    $more_link = elgg_view('output/url', [
+                    'href' => $url,
+                    'text' => elgg_echo('messageboard:viewall'),
+                    'is_trusted' => true,
+                    ]);
+                    echo "<div class=\"elgg-widget-more\">$more_link</div>";
+
+                    
+                    
+                    ?>
+                 </div>
                     
                           <?php 
                      

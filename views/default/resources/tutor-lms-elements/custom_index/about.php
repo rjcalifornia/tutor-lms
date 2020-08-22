@@ -17,10 +17,10 @@
                     <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
                         <div class="section-title">
                             <div class="line"></div>
-                            <h3 class="title">Modern design <span> with Essential Features</span></h3>
+                            <h3 class="title"><?php echo elgg_echo('tutor-lms:login:about:slide_1:title_1');?><span> <?php echo elgg_echo('tutor-lms:login:about:slide_1:title_2');?></span></h3>
                         </div> <!-- section title -->
-                        <p class="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seiam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.</p>
-                        <a href="#" class="main-btn">Try it Free</a>
+                        <p class="text"><?php echo elgg_echo('tutor-lms:login:about:slide_1:description');?></p>
+                        
                     </div> <!-- about content -->
                 </div>
                 <div class="col-lg-6 order-lg-first">
@@ -42,10 +42,10 @@
                     <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
                         <div class="section-title">
                             <div class="line"></div>
-                            <h3 class="title"><span>Crafted for</span> SaaS, App and Software Landing Page</h3>
+                            <h3 class="title"><span><?php echo elgg_echo('tutor-lms:login:about:slide_2:title_1');?></span><?php echo elgg_echo('tutor-lms:login:about:slide_2:title_2');?></h3>
                         </div> <!-- section title -->
-                        <p class="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seiam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.</p>
-                        <a href="#" class="main-btn">Try it Free</a>
+                        <p class="text"><?php echo elgg_echo('tutor-lms:login:about:slide_2:description');?></p>
+                        
                     </div> <!-- about content -->
                 </div>
                 <div class="col-lg-6">
@@ -59,3 +59,4 @@
             <img src="<?php $vars['siteUrl']?>mod/tutor-lms/vendors/asset/login/images/about-shape-1.svg" alt="shape">
         </div>
     </section>
+</br>

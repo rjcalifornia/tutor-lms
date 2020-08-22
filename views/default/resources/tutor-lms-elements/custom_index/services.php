@@ -13,7 +13,7 @@
                 <div class="col-lg-10">
                     <div class="section-title text-center pb-40">
                         <div class="line m-auto"></div>
-                        <h3 class="title">Clean and simple design, <span> Comes with everything you need to get started!</span></h3>
+                        <h3 class="title"><?php echo elgg_echo('tutor-lms:login:services:title_1');?><span><?php echo elgg_echo('tutor-lms:login:services:title_2');?></span></h3>
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
@@ -26,9 +26,9 @@
                             <i class="lni-baloon"></i>
                         </div>
                         <div class="services-content mt-30">
-                            <h4 class="services-title"><a href="#">Clean</a></h4>
-                            <p class="text">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu eirmod tempor invidunt labore.</p>
-                            <a class="more" href="#">Learn More <i class="lni-chevron-right"></i></a>
+                            <h4 class="services-title"><a href="#"><?php echo elgg_echo('tutor-lms:login:features:title_1');?></a></h4>
+                            <p class="text"><?php echo elgg_echo('tutor-lms:login:features:desc_1');?></p>
+                            
                         </div>
                     </div> <!-- single services -->
                 </div>
@@ -40,9 +40,9 @@
                             <i class="lni-cog"></i>
                         </div>
                         <div class="services-content mt-30">
-                            <h4 class="services-title"><a href="#">Robust</a></h4>
-                            <p class="text">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu eirmod tempor invidunt labore.</p>
-                            <a class="more" href="#">Learn More <i class="lni-chevron-right"></i></a>
+                            <h4 class="services-title"><a href="#"><?php echo elgg_echo('tutor-lms:login:features:title_2');?></a></h4>
+                            <p class="text"><?php echo elgg_echo('tutor-lms:login:features:desc_2');?>.</p>
+                            
                         </div>
                     </div> <!-- single services -->
                 </div>
@@ -54,9 +54,9 @@
                             <i class="lni-bolt-alt"></i>
                         </div>
                         <div class="services-content mt-30">
-                            <h4 class="services-title"><a href="#">Powerful</a></h4>
-                            <p class="text">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu eirmod tempor invidunt labore.</p>
-                            <a class="more" href="#">Learn More <i class="lni-chevron-right"></i></a>
+                            <h4 class="services-title"><a href="#"><?php echo elgg_echo('tutor-lms:login:features:title_3');?></a></h4>
+                            <p class="text"><?php echo elgg_echo('tutor-lms:login:features:desc_3');?></p>
+
                         </div>
                     </div> <!-- single services -->
                 </div>

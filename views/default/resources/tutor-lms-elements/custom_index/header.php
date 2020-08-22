@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="<?php echo $vars['siteUrl']?>mod/tutor-lms/vendors/asset/login/images/favicon.png" type="image/png">
+    
         
     <!--====== Animate CSS ======-->
     <link rel="stylesheet" href="<?php echo $vars['siteUrl']?>mod/tutor-lms/vendors/asset/login/css/animate.css">

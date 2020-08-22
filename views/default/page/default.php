@@ -56,7 +56,7 @@ echo elgg_view('page/elements/head', $vars['head']);
                   <div class="panel box-shadow-none content-header">
                       <div class="panel-body">
                         <div class="col-md-12">
-                            <h3 class="animated fadeInLeft">Dashboard</h3>
+                            <h3 class="animated fadeInLeft"> </h3>
                             <p class="animated fadeInDown" style="line-height:.4;">
                               Welcome To <?php echo $siteName; ?>
                             </p>

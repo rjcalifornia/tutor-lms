@@ -21,7 +21,7 @@ return array(
     'assignments:time' => 'Time',
     'assignments:file' => 'Attach a document (Optional)',
     
-    'assignments:group'=> 'Group assignments',
+    'assignments:group'=> 'Course assignments',
     'assignments:write' => 'Create a new assignment',
     'assignments:title:user_assignments'=> 'All Assignments',
     
@@ -129,12 +129,42 @@ return array(
     
     
 	'tutor-lms:login:button' => "Sign in",
+	'tutor-lms:login:goback' => "Go back",
 	'tutor-lms:login:main_title' => "Tutor LMS Plugin",
 	'tutor-lms:login:features' => "Features",
+	'tutor-lms:login:branding' => "Tutor LMS",
+	'tutor-lms:login:username' => "Username",
+	'tutor-lms:login:password' => "Password",
+	'tutor-lms:login:remember' => " Remember me?",
+	'tutor-lms:login:forgotpassword' => "Forgot password?",
+	'tutor-lms:login:register' => "Sign up",
+    
+    
+	'tutor-lms:login:services:title_1' => "Showcase Your Courses in an Attractive ",
+	'tutor-lms:login:services:title_2' => "& User-friendly Frontend View!",
+    
+        'tutor-lms:login:features:title_1' => 'Clean',
+        'tutor-lms:login:features:desc_1' => 'Tutor LMS lets you present courses on an intuitive user interface with all required options to offer a top-notch learning system.',
+    
+        'tutor-lms:login:features:title_2' => 'Robust',
+        'tutor-lms:login:features:desc_2' => 'Tutor LMS lets you manage courses, students and instructor profiles directly from the advanced administration dashboard',
+    
+        'tutor-lms:login:features:title_3' => 'Powerful',
+        'tutor-lms:login:features:desc_3' => 'Tutor LMS provides you with a complete eLearning platform so that you get to offer great classes to students worldwide.',
         
+        'tutor-lms:login:learn_more' => 'Learn more',
+    
+        'tutor-lms:login:about:slide_1:title_1' => 'Modern design',
+        'tutor-lms:login:about:slide_1:title_2' => 'with Essential Features',
+        'tutor-lms:login:about:slide_1:description' => 'Tutor LMS is a complete, feature-packed and robust Elgg LMS plugin to create courses online easily. All the features of this learning management system hits all the checkpoints for a full-fledged online course marketplace',
+        
+        'tutor-lms:login:about:slide_2:title_1' => 'Create, customize, and manage online courses',
+        'tutor-lms:login:about:slide_2:title_2' => ' with this free LMS plugin for elgg',
+        'tutor-lms:login:about:slide_2:description' => 'All-in-one Course Management System, with an Intuitive course builder, Unlimited courses and lessons, Frontend student dashboard, and a centralized course management',
         
         
   
 
     
     );
+

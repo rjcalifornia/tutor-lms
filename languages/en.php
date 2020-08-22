@@ -126,6 +126,11 @@ return array(
 	'tutor:profile:group-count' => "Courses",
 	'tutor:profile:posts-count' => "Activity",
 	'tutor-lms:search' => "Type anywhere to search",
+    
+    
+	'tutor-lms:login:button' => "Sign in",
+	'tutor-lms:login:main_title' => "Tutor LMS Plugin",
+	'tutor-lms:login:features' => "Features",
         
         
         

@@ -13,10 +13,11 @@ $dbprefix = elgg_get_config('dbprefix');
 $userGroups = tutor_user_courses($user, $dbprefix);
 
    
-
-$activity = tutor_courses_activities($userGroups, $dbprefix);
+if($userGroups != null)
+{
+    $activity = tutor_courses_activities($userGroups, $dbprefix);
 //var_dump($activity);
-        
+}    
         
         $invitations = groups_get_invited_groups($user->guid, false, array(
 		'limit' => $limit,

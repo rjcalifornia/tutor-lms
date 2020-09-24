@@ -6,7 +6,7 @@
 	<version>1.00</version>
 	<category>bundled</category>
 	<category>theme</category>
-	<description>Responsive Elgg theme</description>
+	<description>Tutor LMS Plugin with Assignments Manager included</description>
 	<website>http://www.swsocialweb.com</website>
 	<copyright>See COPYRIGHT.txt</copyright>
 	<license>GNU General Public License version 2</license>
@@ -32,5 +32,23 @@
             <type>plugin</type>
             <name>discussions</name>
          </requires>
+         
+        <conflicts>
+            <type>plugin</type>
+            <name>assignments</name>
+        </conflicts>
+        
+          
+        <conflicts>
+            <type>plugin</type>
+            <name>super_dashboard</name>
+        </conflicts>
+
+        
+        <conflicts>
+            <type>plugin</type>
+            <name>aalborg_theme</name>
+        </conflicts>
+
 	<activate_on_install>true</activate_on_install>
 </plugin_manifest>

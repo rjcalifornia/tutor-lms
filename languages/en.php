@@ -9,9 +9,15 @@ return array(
     'assignments:title' => 'Title',
     'assignments:view' => 'View all assignments',
     'assignments:description' => 'Instructions',
+    'assignments:create:success' => 'Your assignment was successfully published',
+    'assignments:update:success' => 'Your assignment was updated',
     'assignments:date' => 'Date',
     'assignments:widget:new' => 'New assignment published!',
     'super_dashboard:title' => "Dashboard",
+    'assignments:edit' => "Edit",
+    'lessons:group' => 'Course lessons',
+    'lessons:none' => 'No lessons',
+    'item:lessons' => "Lessons",
     
     
     'assignments:add' => 'Create an assignment',

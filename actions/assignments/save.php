@@ -8,6 +8,25 @@ $duetime = get_input('duetime');
 $access_id = get_input('access_id');
 $uploaded_files = elgg_get_uploaded_files('featured_image');
 
+$guid = get_input('guid');
+$error_forward_url = REFERER;
+if ($guid) {
+	$entity = get_entity($guid);
+	
+		$assignments = $entity;
+                $assignments->title = $title;
+                $assignments->instructions = $body;
+                $assignments->points = $points;
+                $assignments->duedate = $duedate;
+                $assignments->duetime = $duetime;
+                $assignments_guid = $assignments->save();
+                $message = elgg_echo('assignments:update:success');
+
+	// save some data for revisions once we save the new edit
+	
+} else {
+    
+    $message = elgg_echo('assignments:create:success');
 //$tags = string_to_tag_array(get_input('tags'));
 $excerpt = elgg_get_excerpt($body, 18);
 // create a new my_blog object and put the content in it
@@ -47,18 +66,13 @@ if($uploaded_file)
 {
 $file = new ElggAttachments();
 $file->title = $file->getFilename();
-//$file->subtype = "attachments";
-//$file->category = "featured";
 $file->owner_guid = $assignments->getGUID();
 $file->access_id = 2;
-//$file->thumbnail = $file->getIcon('small')->getFilename();
-//$file->smallthumb = $file->getIcon('medium')->getFilename();
-//$file->largethumb = $file->getIcon('large')->getFilename();
+
 if ($file->acceptUploadedFile($uploaded_file)) {
-        //$guid = $file->save(); 
+
         $file->save();
-        
-          
+              
 }
         }
 
@@ -71,10 +85,11 @@ if ($file->acceptUploadedFile($uploaded_file)) {
 			));
 
 			elgg_trigger_event('publish', 'object', $assignments);
-// if the my_blog was saved, we want to display the new post
-// otherwise, we want to register an error and forward back to the form
+}
+
+
 if ($assignments_guid) {
-   system_message("Your assignment was published.");
+   system_message($message);
    forward($assignments->getURL());
 } else {
    register_error("The assignment post could not be saved.");

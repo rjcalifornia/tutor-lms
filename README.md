@@ -2,7 +2,7 @@
 
 # Tutor LMS plugin for elgg
 
-## Most Powerful LMS Plugin for elgg
+#### Most Powerful LMS Plugin for elgg
 
 Tutor LMS is a completely free elgg LMS plugin, compatible with the majority of elgg plugins. 
 
